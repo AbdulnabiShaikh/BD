@@ -1,0 +1,15 @@
+stud> db.createCollection('student')
+
+stud> db.student.insertOne({name:'Abdulnabi',age:22,grade:'O'})
+
+stud> db.student.insertMany([{name:'Alex',age:22,grade:'O'},{name:'Halena',age:21,grade:'A'}])
+
+stud> db.student.find()
+
+stud> db.student.deleteOne({grade:'A'})
+
+stud> db.student.find()
+
+stud> db.student.deleteMany({})
+
+stud> db.student.find()

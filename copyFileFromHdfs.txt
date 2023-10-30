@@ -1,0 +1,49 @@
+Aim: Copying File to Hadoop. -Copy from Hadoop File system and deleting file. -Moving and displaying
+files in HDFS.
+Software: Following software’s are required to perform this experiment:-
+1. Hadoop 3.2.4
+2. Window 10 operating system
+Theory : 
+We will be using a small text file in local file system. To put it in hdfs using hdfs command line tool.
+Create a directory named ‘sample’ in my hadoop directory using the following command
+
+hdfs dfs –mkdir /sample
+To verify if the directory is created in hdfs, we will use ‘ls’ command which will list the files present in
+hdfs –
+hdfs dfs –ls /
+
+Then I will copy a text file named ‘potatoes’ from my local file system to this folder that I just created in
+hdfs using copyFromLocal commandhdfs dfs -copyFromLocal C:\Users\hp\Downloads\potatoes.txt /sample
+
+To verify if the file is copied to the folder, I will use ‘ls’ command by specifying the folder name which
+will read the list of files in that folder –
+hdfs dfs –ls /sample
+
+To view the contents of the file we copied, I will use cat command
+hdfs dfs –cat /sample/potatoes.txt
+
+To Copy file from hdfs to local directory, I will use get command –
+hdfs dfs -get /sample/potatoes.txt C:\Users\hp\Desktop\priyanka
+
+
+Code : 
+hdfs dfs -ls/
+
+hdfs dfs - mkdir /test1
+
+hdfs dfs -ls/
+
+//Then I will copy a text file named ‘hello’ from my local file system to this folder that 
+//I just created in hdfs using copyFromLocal command-
+hdfs dfs -copyFromLocal C:\Users\hp\Downloads\hello.txt /test1
+
+hdfs dfs -ls/test1
+
+To view the contents of the file we copied, I will use cat command-
+hdfs dfs –cat /test1/hello.txt
+
+//To Copy file from hdfs to local directory, I will use get command – 
+hdfs dfs -get /test1/hello.txt C:\Users\hp\Desktop\priyanka
+
+remove a file 
+hdfs dfs -rm /test1/hello.txt

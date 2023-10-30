@@ -1,0 +1,68 @@
+Aim: Implement DGIM algorithm using any programming language
+Theory: 
+Here is a summary of the article:
+Data stream mining is a process of extracting knowledge from continuous and rapid data records. A data stream is an ordered sequence of instances that can be read only once or a few times using limited resources. There are two types of queries that can be asked on data streams: ad-hoc queries and standing queries.
+One common problem in data stream mining is to count the number of 1's in a window of N bits, where N is a fixed size. The DGIM algorithm (Datar-Gionis-Indyk-Motwani Algorithm) is designed to solve this problem using O(log²N) bits of memory and allowing an error of no more than 50%.
+The DGIM algorithm works as follows:
+- Each bit that arrives has a timestamp, indicating its position in the stream.
+- The window is divided into buckets, each containing a number of 1's and starting with 1 on the right end.
+- The buckets have sizes that are powers of 2, and the sizes do not decrease from right to left.
+- When a new bit arrives, if it is 0, nothing changes. If it is 1, a new bucket of size 1 is created with the current timestamp.
+- If there are three buckets of the same size, the leftmost two are merged into one bucket of twice the size, with the timestamp of the rightmost one. This process may continue until there are at most two buckets of each size.
+- If the leftmost bucket is older than the window size N, it is discarded.
+To estimate the number of 1's in the last K bits, where K <= N, the algorithm sums up the sizes of the buckets that are fully contained in the last K bits, and adds half of the size of the bucket that may be partially contained. This gives an answer that is within 50% of the exact count.
+
+
+Date : 11000010110000101000010010011010001000110
+code : 
+import IPython
+import sys
+import itertools
+import time
+import math
+
+def checkAndMergeBucket(bucketList, t):
+    bucketListLength = len(bucketList)
+    for i in range (bucketListLength):
+        if len(bucketList[i]) > 2:
+            bucketList[i].pop(0)
+            if i + 1 >= bucketListLength:
+                bucketList[i].pop(0)
+            else:
+                bucketList[i+1].append(bucketList[i].pop(0))
+
+K = 1000
+N = 1000
+k = int(math.floor(math.log(N, 2)))
+t = 0
+onesCount = 0
+bucketList = []
+for i in range(k+1):
+    bucketList.append(list())
+
+with open('data.txt') as f:
+    while True:
+        c = f.read(1)
+        if not c:
+            for i in range(k+1):
+                for j in range(len(bucketList[i])):
+                    print ("Size of bucket: %d, timestamp: %d" % (pow(2,i), bucketList[i][j]))
+
+                    earliestTimestamp = bucketList[i][j]
+            for i in range(k+1):
+                for j in range(len(bucketList[i])):
+                    if bucketList[i][j] != earliestTimestamp:
+                        onesCount = onesCount + pow(2,i)
+                    else:
+                        onesCount = onesCount + 0.5 * pow(2,i)
+            break
+        t = (t + 1) % N
+        for i in range(k+1):
+            for bucketTimestamp in bucketList[i]:
+                if bucketTimestamp == t:
+                    bucketList[i].remove(bucketTimestamp)
+        if c == '1':
+            bucketList[0].append(t)
+            checkAndMergeBucket(bucketList, t)
+        elif c == '0':
+            continue

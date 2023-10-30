@@ -1,0 +1,17 @@
+stud> db.createCollection('student')
+
+db.student.insertOne({name:'Alex',class:'BE COMP',marks:47})
+
+db.student.insertMany([{name:'Halena',class:'BE ECS',marks:45},{name:'Kevin',class:'BE COMP',marks:42},{name:'Carl',class:'BE ECE',marks:44}])
+
+stud> db.student.find()
+
+stud> db.student.createIndex({name:1})
+
+stud> db.student.getIndexes()
+
+stud> db.student.aggregate([{$group:{_id:'$class',average:{$avg:'$marks'}}}])
+
+stud> db.student.aggregate([{$sort:{marks:-1}},{$limit:1}])
+
+stud>

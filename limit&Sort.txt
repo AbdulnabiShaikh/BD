@@ -1,0 +1,60 @@
+Aim: Implement MongoDB Queries like limit, sort, index, aggregate
+Theory:
+The Limit() Method
+To limit the records in MongoDB, you need to use limit() method. The method accepts one number type
+argument, which is the number of documents that you want to be displayed.
+Syntax
+The basic syntax of limit() method is as follows −
+>db.COLLECTION_NAME.find().limit(NUMBER)
+
+MongoDB Skip() Method
+Apart from limit() method, there is one more method skip() which also accepts number type argument and
+is used to skip the number of documents.
+Syntax
+The basic syntax of skip() method is as follows −
+>db.COLLECTION_NAME.find().limit(NUMBER).skip(NUMBER)
+
+The sort() Method
+To sort documents in MongoDB, you need to use sort() method. The method accepts a document containing
+a list of fields along with their sorting order. To specify sorting order 1 and -1 are used. 1 is used for
+ascending order while -1 is used for descending order.
+Syntax
+The basic syntax of sort() method is as follows −
+>db.COLLECTION_NAME.find().sort({KEY:1})
+
+Indexes support the efficient resolution of queries. Without indexes, MongoDB must scan every document
+of a collection to select those documents that match the query statement. This scan is highly inefficient and
+require MongoDB to process a large volume of data.
+Indexes are special data structures, that store a small portion of the data set in an easy-to-traverse form. The
+index stores the value of a specific field or set of fields, ordered by the value of the field as specified in the
+index.
+The createIndex() Method
+To create an index, you need to use createIndex() method of MongoDB.
+Syntax
+The basic syntax of createIndex() method is as follows().
+>db.COLLECTION_NAME.createIndex({KEY:1})
+Here key is the name of the field on which you want to create index and 1 is for ascending order. To create
+index in descending order you need to use -1.
+
+The aggregate() Method
+For the aggregation in MongoDB, you should use aggregate() method.
+Syntax
+Basic syntax of aggregate() method is as follows −
+>db.COLLECTION_NAME.aggregate(AGGREGATE_OPERATION)
+
+
+
+code : 
+kitaab> db.createCollection('Book')
+
+kitaab> db.Book.insertOne({name:'BDA', author:'abc',published:1990,price:100})
+
+kitaab> db.Book.insertMany([{name:'ML', author:'affu',published:2010,price:200},{name:'BC',author:'kaab',published:2022,price:300},{name:'DMMM',author:'wael',published:2023,price:350}])
+
+kitaab> db.Book.find()
+
+kitaab> db.Book.find().limit(2)
+
+kitaab> db.Book.find().sort({price:1})
+
+kitaab>

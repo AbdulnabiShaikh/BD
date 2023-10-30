@@ -1,0 +1,49 @@
+Aim: Perform CRUD operations in MongoDB
+
+Theory : 
+MongoDB CRUD operations
+Create Operations –
+The create or insert operations are used to insert or add new documents in the collection. If a collection
+does not exist, then it will create a new collection in the database. You can perform, create operations
+using the following methods provided by the MongoDB:
+db.collection.insertOne()
+dg.collection.insertMany()
+
+Read Operations –
+The Read operations are used to retrieve documents from the collection, or in other words, read
+operations are used to query a collection for a document. You can perform read operation using the
+following method provided by the MongoDB:
+Example : In this example, we are retrieving the details of students from the student collection using
+db.collection.find() method
+
+Update Operations –
+The update operations are used to update or modify the existing document in the collection. You can
+perform update operations using the following methods provided by the MongoDB:
+
+db.collection.updateOne()
+db.collection.updateMany()
+db.collection.replaceOne()
+
+
+Delete Operations –
+The delete operation are used to delete or remove the documents from a collection. You can perform
+delete operations using the following methods provided by the MongoDB:
+db.collection.deleteOne()
+db.collection.deleteMany()
+
+Code : 
+main> use employee
+switched to db employee
+employee> db.createCollection('employees')
+
+employee> db.employees.insertOne({name:'raja',role:'software developer',salary:70000})
+
+employee> db.employees.insertMany([{name:'ram',role:'backend',salary:50000},{name:'sanjay',role:'frontend',salary:40000}])
+
+employee> db.employees.find()
+
+employee> db.employees.updateOne({name:'sanjay'},{$set:{role:'backend'}})
+
+employee> db.employees.find()
+
+employee> db.employees.updateMany({role:'backend'},{$set:{salary:100000}})

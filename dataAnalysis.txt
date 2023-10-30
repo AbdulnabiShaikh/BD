@@ -1,0 +1,40 @@
+Aim: Big Data Analysis using R
+Theory : 
+Here is a summary of the article:
+
+Data analysis is a subset of data analytics, where the objective is to collect, preprocess, analyze, and visualize relevant data to solve a problem. The article gives an example of how to analyze the products that are being rapidly sold out and details of frequent customers of a retail shop. The steps involved are:
+
+- Defining the problem statement: The goal is to find the product and customer IDs and the date visited.
+- Collection of data: Only the relevant columns are selected from the company's data.
+- Preprocessing: The data is cleaned by removing outliers, null values, and missing data.
+- Analysis: The data is explored to find insights and patterns using descriptive statistics and graphs.
+- Visualization: The data is presented in a clear and understandable way using pie charts, histograms, density plots, etc.
+
+The article also shows how to perform data analysis using the Titanic dataset, which contains data from real passengers of the Titanic. The dataset is read from a CSV file and some basic operations are performed using R code. The article shows how to check the class of each column, convert some columns to factors, summarize the data, and plot some graphs. The article demonstrates how to use data analysis to answer questions such as how many passengers survived, what was the distribution of age and gender among the survivors, and what was the fare charged from the passengers.
+
+
+Code : 
+
+titanic = read.csv("C:/Users/affan/Desktop/BDA CODE/7/titanic_dataset.csv")
+head(titanic)
+
+sapply(titanic, class)
+
+titanic$Survived = as.factor(titanic$Survived)
+
+summary(titanic)
+
+sum(is.na(titanic))
+dropnull_train = titanic[rowSums(is.na(titanic)) <= 0,]
+survivedlist = dropnull_train[dropnull_train$Survived == 1,] 
+notsurvivedlist = dropnull_train[dropnull_train$Survived == 0,]
+
+mytable <- table(titanic$Survived) 
+lbls <- paste(names(mytable), "\n", mytable, sep="")
+pie(mytable, labels = lbls, main = "Pie Chart of Survived column data\n (with sample sizes)")
+
+hist(survivedlist$Age, xlab = "Age", ylab = "frequency")
+
+temp <- density(table(titanic$Fare)) 
+plot(temp, type = "n", main = "Fare charged from Passengers") 
+polygon(temp, col = "lightgray", border = "gray")
